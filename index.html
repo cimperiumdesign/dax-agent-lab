@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#0a0d14" />
+  <title>DAX Agent Lab — Cofre de Estudos</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <style>
+    :root{--bg:#07090f;--panel:#0d111b;--panel2:#121827;--line:#212a3b;--text:#edf3ff;--muted:#93a4bf;--accent:#66e3ff;--accent2:#9c7cff;--ok:#4ade80;--warn:#fbbf24;--radius:20px}
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;background:radial-gradient(circle at 15% 0,#101a2d 0,transparent 30%),var(--bg);color:var(--text)}
+    button,input,textarea,select{font:inherit} button{cursor:pointer}
+    .app{max-width:1500px;margin:auto;min-height:100vh;display:grid;grid-template-columns:290px 1fr}
+    aside{border-right:1px solid var(--line);background:rgba(8,11,18,.84);backdrop-filter:blur(14px);padding:22px;position:sticky;top:0;height:100vh;overflow:auto}
+    .brand{display:flex;gap:12px;align-items:center;margin-bottom:24px}.logo{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;color:#071018;font-weight:900}.brand h1{font-size:15px;margin:0}.brand small{color:var(--muted)}
+    .nav-title{font-size:11px;color:#67758c;text-transform:uppercase;letter-spacing:.12em;margin:18px 8px 8px}.nav button{width:100%;border:0;background:transparent;color:#b8c4d8;text-align:left;padding:11px 12px;border-radius:12px;margin:2px 0}.nav button:hover,.nav button.active{background:#151d2c;color:white}.nav button.active{box-shadow:inset 3px 0 0 var(--accent)}
+    main{padding:28px 34px 80px;min-width:0}.hero{display:flex;justify-content:space-between;gap:22px;align-items:flex-end;margin-bottom:24px}.hero h2{font-size:clamp(28px,4vw,48px);line-height:1;margin:0 0 10px}.hero p{margin:0;color:var(--muted);max-width:760px}.pill{display:inline-flex;padding:7px 10px;border:1px solid #28405a;border-radius:999px;color:#9eeaff;background:#0a1823;font-size:12px;margin-bottom:12px}
+    .actions{display:flex;gap:8px;flex-wrap:wrap}.btn{border:1px solid var(--line);background:#111827;color:white;border-radius:12px;padding:10px 13px}.btn.primary{background:linear-gradient(135deg,#1677ff,#7a5cff);border:0}.btn:hover{filter:brightness(1.08)}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}.card{grid-column:span 4;background:linear-gradient(180deg,rgba(20,27,42,.96),rgba(12,16,26,.96));border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:0 20px 70px rgba(0,0,0,.18)}.card.wide{grid-column:span 8}.card.full{grid-column:1/-1}.card h3{margin:0 0 7px;font-size:18px}.card p{margin:0;color:var(--muted);line-height:1.55}.tag{font-size:11px;padding:5px 8px;border-radius:999px;background:#1a2232;color:#a9bad2;display:inline-block;margin-bottom:10px}
+    .module-list{display:grid;gap:10px;margin-top:14px}.module{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:14px;background:#0b101a}.module.done{opacity:.62}.check{width:24px;height:24px;border-radius:7px;border:1px solid #39465a;background:#111827;color:white}.module strong{display:block}.module small{color:var(--muted)}
+    .video-wrap{aspect-ratio:16/9;background:#03050a;border:1px dashed #34445e;border-radius:16px;display:grid;place-items:center;overflow:hidden;margin-top:14px}.video-wrap video{width:100%;height:100%;background:black}.empty{text-align:center;color:var(--muted);padding:24px}.empty b{color:#d9e7ff}.file{display:none}.note{width:100%;min-height:220px;background:#080c14;border:1px solid var(--line);border-radius:14px;color:white;padding:14px;resize:vertical;outline:none}.note:focus{border-color:#3d7bd8}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}.stat{background:#0a0f18;border:1px solid var(--line);border-radius:14px;padding:14px}.stat b{font-size:24px;display:block}.stat span{font-size:12px;color:var(--muted)}
+    .progress{height:9px;background:#0a0f18;border:1px solid var(--line);border-radius:99px;overflow:hidden;margin-top:12px}.progress>i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0}.source{font-size:12px;color:#8da1bd;margin-top:12px}.source a{color:#8de7ff}.warning{border-color:#4d3b12;background:linear-gradient(180deg,#1a160b,#0d0f15)}.pro{border-color:#2b315f;background:linear-gradient(180deg,#111633,#0c1020)}
+    .arch{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}.arch div{padding:13px;border:1px solid var(--line);border-radius:14px;background:#0a0f18}.arch b{display:block;margin-bottom:5px}.arch span{font-size:12px;color:var(--muted)}
+    .hidden{display:none!important}.section-title{margin:26px 0 12px;font-size:13px;color:#6f7f98;text-transform:uppercase;letter-spacing:.11em}
+    footer{color:#5f6e83;font-size:12px;margin-top:24px;line-height:1.55}
+    @media(max-width:1000px){.app{grid-template-columns:1fr}aside{position:relative;height:auto;border-right:0;border-bottom:1px solid var(--line)}.nav{display:flex;overflow:auto;gap:5px}.nav-title{display:none}.nav button{min-width:max-content}.hero{align-items:flex-start;flex-direction:column}.card,.card.wide{grid-column:1/-1}.arch{grid-template-columns:1fr 1fr}}
+    @media(max-width:600px){main{padding:22px 16px 70px}aside{padding:14px}.stats,.arch{grid-template-columns:1fr}.hero h2{font-size:34px}.actions{width:100%}.actions .btn{flex:1}.module{grid-template-columns:auto 1fr}.module .btn{grid-column:1/-1}.card{padding:15px;border-radius:16px}}
+  </style>
+</head>
+<body>
+<div class="app">
+  <aside>
+    <div class="brand"><div class="logo">DAX</div><div><h1>Agent Lab</h1><small>Cofre privado de estudos</small></div></div>
+    <div class="nav-title">Navegação</div>
+    <div class="nav" id="nav"></div>
+    <div class="nav-title">Dados locais</div>
+    <div class="actions">
+      <button class="btn" onclick="requestPersistence()">Fixar armazenamento</button>
+      <button class="btn" onclick="exportBackup()">Exportar backup</button>
+      <label class="btn">Importar backup<input class="file" id="backupFile" type="file" accept="application/json" onchange="importBackup(this.files[0])"></label>
+    </div>
+  </aside>
+  <main>
+    <div class="hero">
+      <div><span class="pill">PWA • OFFLINE • PROGRESSO LOCAL</span><h2>Seu laboratório de agentes de IA.</h2><p>Uma central própria para estudar a imersão, adicionar seus arquivos autorizados e evoluir para uma arquitetura de agentes mais segura, observável e escalável.</p></div>
+      <div class="actions"><a class="btn primary" href="https://1793437-instalador.denderson.com" target="_blank" rel="noopener">Abrir fonte original</a></div>
+    </div>
+
+    <section id="dashboard" class="page"></section>
+    <section id="module" class="page hidden"></section>
+    <section id="daxpro" class="page hidden"></section>
+  </main>
+</div>
+<script>
+const modules = [
+ {id:'boas-vindas', group:'Preparação', title:'Mensagem de boas-vindas', desc:'Boas-vindas e orientação inicial para a imersão.', video:'https://assets.cdn.filesafe.space/sVzQ1MyiOqQn2e6Yuzu1/media/a180fcbf-8a7f-43db-8931-1f7c2732917d.mp4'},
+ {id:'inicio', group:'Preparação', title:'Comece por aqui', desc:'Visão geral da preparação e fluxo da imersão.', video:'https://assets.cdn.filesafe.space/sVzQ1MyiOqQn2e6Yuzu1/media/b430d77b-c8ab-4f02-9992-cc538c107a59.mp4'},
+ {id:'servidor', group:'Preparação', title:'Servidor do agente', desc:'VPS, Ubuntu, credenciais e ambiente de execução.', video:'https://assets.cdn.filesafe.space/sVzQ1MyiOqQn2e6Yuzu1/media/9b60b865-d89a-407c-827a-779c648f8606.mp4'},
+ {id:'telegram', group:'Preparação', title:'Prepare o Telegram', desc:'Preparação do Telegram para conexão e uso com o agente.', video:'https://assets.cdn.filesafe.space/sVzQ1MyiOqQn2e6Yuzu1/media/358a9b8d-0c19-4015-9db1-3cf1d41a6ca9.mp4'},
+ {id:'instalador', group:'Preparação', title:'Instalador Hermes — Instalação na prática', desc:'Provisionamento do agente e instalação prática com o Hermes.', video:'https://assets.cdn.filesafe.space/sVzQ1MyiOqQn2e6Yuzu1/media/a0ae3c2d-8593-46c2-9580-dd732cd9d0aa.mp4'},
+ {id:'d1-base', group:'Dia 1', title:'Instalação e treinamento da Naia', desc:'Base de configuração e sequência de treinamento do agente principal.', video:'https://assets.cdn.filesafe.space/sVzQ1MyiOqQn2e6Yuzu1/media/6ab8ad04c13d4373c2b95add.mp4'},
+ {id:'d1-seguranca', group:'Dia 1', title:'Segurança', desc:'Proteções contra uso indevido, exposição de instruções e vazamento de dados.'},
+ {id:'d1-personalidade', group:'Dia 1', title:'Comportamento e personalidade', desc:'Tom, identidade, estilo de resposta e comportamento do agente.'},
+ {id:'d1-regras', group:'Dia 1', title:'Regras do agente', desc:'Limites operacionais, permissões, recusas e prioridades.'},
+ {id:'d1-isolamento', group:'Dia 1', title:'Isolamento de dados', desc:'Separação de contextos e dados entre clientes, projetos e tarefas.'},
+ {id:'d1-onboarding', group:'Dia 1', title:'Onboarding do dono', desc:'Entrevista estruturada para capturar contexto, operação, padrões e preferências.'},
+ {id:'d2-ops', group:'Dia 2', title:'Subagentes da Naia', desc:'Coordenação de trabalho e criação dos subagentes da Naia.', video:'https://assets.cdn.filesafe.space/sVzQ1MyiOqQn2e6Yuzu1/media/6aba4b87c13d4373c2dd181b.mp4'},
+ {id:'d2-sdr', group:'Dia 2', title:'Subagente SDR', desc:'Atendimento, qualificação, coleta e registro de oportunidades.'},
+ {id:'d2-dev', group:'Dia 2', title:'Subagente desenvolvedor', desc:'Código, integrações, APIs, infraestrutura e depuração.'},
+ {id:'d2-copy', group:'Dia 2', title:'Subagente de conteúdo', desc:'Copywriting, roteiros, pesquisa e criação de conteúdo.'},
+ {id:'d2-instagram', group:'Dia 2', title:'Canal Instagram', desc:'Integração do agente de atendimento com o canal social.'},
+ {id:'d2-lp', group:'Skills', title:'Landing pages', desc:'Fluxo de produção e validação de landing pages.'},
+ {id:'d2-propostas', group:'Skills', title:'Propostas comerciais', desc:'Transformar briefing ou call em proposta comercial estruturada.'},
+ {id:'d2-carrossel', group:'Skills', title:'Carrosséis sociais', desc:'Criação e organização de conteúdo em formato de carrossel.'},
+ {id:'d2-video', group:'Skills', title:'Edição de vídeo econômica', desc:'Processo de produção de vídeo curto com controle de custos.'}
+];
+const state = JSON.parse(localStorage.getItem('daxlab-state')||'{}'); state.done ||= {}; state.notes ||= {};
+let currentId=null;
+function save(){localStorage.setItem('daxlab-state',JSON.stringify(state)); renderDashboard();}
+function grouped(){const g={}; modules.forEach(m=>(g[m.group]??=[]).push(m)); return g}
+function renderNav(){const nav=document.getElementById('nav'); nav.innerHTML='<button class="active" data-target="dashboard">Visão geral</button><button data-target="daxpro">DAX Pro</button>'; Object.entries(grouped()).forEach(([g,items])=>{items.forEach(m=>nav.innerHTML+=`<button data-mid="${m.id}">${m.title}</button>`)}); nav.onclick=e=>{const b=e.target.closest('button'); if(!b)return; nav.querySelectorAll('button').forEach(x=>x.classList.remove('active')); b.classList.add('active'); if(b.dataset.mid) openModule(b.dataset.mid); else showPage(b.dataset.target)} }
+function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden')); document.getElementById(id).classList.remove('hidden'); if(id==='daxpro') renderPro();}
+function renderDashboard(){const done=modules.filter(m=>state.done[m.id]).length; const pct=Math.round(done/modules.length*100); const groups=grouped(); document.getElementById('dashboard').innerHTML=`
+ <div class="grid">
+  <div class="card wide"><span class="tag">Painel</span><h3>Progresso de estudo</h3><p>Marque cada módulo após revisar o conteúdo e registrar suas próprias notas.</p><div class="progress"><i style="width:${pct}%"></i></div><div class="stats"><div class="stat"><b>${done}/${modules.length}</b><span>Módulos concluídos</span></div><div class="stat"><b>${pct}%</b><span>Progresso total</span></div><div class="stat"><b>${Object.keys(state.notes).filter(k=>state.notes[k]?.trim()).length}</b><span>Módulos com notas</span></div></div></div>
+  <div class="card warning"><span class="tag">Arquivamento</span><h3>Vídeos da imersão integrados</h3><p>As aulas mapeadas no manifesto agora abrem diretamente na plataforma. O envio local continua disponível como alternativa.</p></div>
+  ${Object.entries(groups).map(([g,items])=>`<div class="card full"><span class="tag">${g}</span><h3>${g}</h3><div class="module-list">${items.map(m=>`<div class="module ${state.done[m.id]?'done':''}"><button class="check" onclick="toggleDone('${m.id}');event.stopPropagation()">${state.done[m.id]?'✓':''}</button><div onclick="openModule('${m.id}')"><strong>${m.title}</strong><small>${m.desc}</small></div><button class="btn" onclick="openModule('${m.id}')">Abrir</button></div>`).join('')}</div></div>`).join('')}
+ </div>`}
+function toggleDone(id){state.done[id]=!state.done[id];save(); if(currentId===id)openModule(id)}
+async function openModule(id){
+ currentId=id;
+ showPage('module');
+ const m=modules.find(x=>x.id===id);
+ const hasLocalVideo=await videoExists(id);
+ const remoteVideo=m.video||'';
+ const videoHtml=remoteVideo
+   ? `<video controls playsinline preload="metadata" src="${remoteVideo}"></video>`
+   : (hasLocalVideo
+      ? '<div class="empty">Carregando vídeo local…</div>'
+      : '<div class="empty"><b>Nenhum vídeo associado.</b><br>Você ainda pode adicionar um arquivo local autorizado.</div>');
+ document.getElementById('module').innerHTML=`
+ <div class="grid"><div class="card wide"><span class="tag">${m.group}</span><h3>${m.title}</h3><p>${m.desc}</p><div class="video-wrap" id="videoBox">${videoHtml}</div><div class="actions" style="margin-top:12px"><label class="btn primary">Adicionar vídeo local<input class="file" type="file" accept="video/*" onchange="storeVideo('${id}',this.files[0])"></label><button class="btn" onclick="removeVideo('${id}')">Remover vídeo local</button><button class="btn" onclick="toggleDone('${id}')">${state.done[id]?'Desmarcar':'Marcar concluído'}</button></div></div>
+ <div class="card"><span class="tag">Notas</span><h3>Seu aprendizado</h3><p>Registre conceitos, prompts, comandos e ideias de implementação.</p><textarea class="note" oninput="state.notes['${id}']=this.value;save()" placeholder="Escreva aqui…">${escapeHtml(state.notes[id]||'')}</textarea></div></div>`;
+ if(!remoteVideo && hasLocalVideo) playStoredVideo(id);
+}
+function escapeHtml(s){return s.replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+function renderPro(){document.getElementById('daxpro').innerHTML=`<div class="grid"><div class="card full pro"><span class="tag">ARQUITETURA AVANÇADA</span><h3>DAX Pro — o que eu acrescentaria ao modelo da imersão</h3><p>Em produção, um agente poderoso não é só um prompt. Ele precisa de orquestração, memória, ferramentas, segurança, observabilidade e controle de efeitos colaterais.</p><div class="arch">
+ <div><b>1. Orquestrador</b><span>Um gerente decide quando responder, chamar ferramenta ou delegar para especialista.</span></div><div><b>2. Especialistas</b><span>Operações, SDR, desenvolvimento, conteúdo e outros agentes com contexto mínimo necessário.</span></div><div><b>3. Tool Registry</b><span>Ferramentas declaradas por função, escopo, permissão, custo e necessidade de aprovação humana.</span></div><div><b>4. Memória em camadas</b><span>Memória de sessão, perfil duradouro, base documental e memória operacional separadas.</span></div><div><b>5. Isolamento real</b><span>Namespace por usuário/empresa/projeto e credenciais separadas por tenant.</span></div><div><b>6. Guardrails</b><span>Validação na entrada, saída e antes/depois de ferramentas sensíveis.</span></div><div><b>7. Aprovação humana</b><span>Ações irreversíveis — envio, pagamento, exclusão, publicação — aguardam autorização.</span></div><div><b>8. Observabilidade</b><span>Tracing, logs, custos, latência, erros, tool calls e auditoria de decisões.</span></div><div><b>9. Avaliações</b><span>Casos de teste para medir qualidade, regressões, segurança e aderência ao processo.</span></div><div><b>10. Jobs e eventos</b><span>Fila para tarefas longas, webhooks, rotinas agendadas e retomada após falhas.</span></div><div><b>11. Cofre de segredos</b><span>Tokens e chaves fora do prompt, com rotação e princípio do menor privilégio.</span></div><div><b>12. Portabilidade</b><span>Separar domínio da IA, canal e fornecedor para poder trocar Telegram, modelo ou API sem reescrever tudo.</span></div>
+ </div></div><div class="card full"><span class="tag">Próxima implementação</span><h3>Stack recomendada para um projeto seu</h3><p>Python + OpenAI Agents SDK para orquestração; FastAPI para API/webhooks; PostgreSQL para estado e dados; Redis para filas/cache; armazenamento de arquivos compatível com S3; Docker; proxy reverso; logs e tracing. O canal (Telegram/WhatsApp/web) deve ser só uma camada de entrada e saída.</p><div class="source">Referências oficiais: <a href="https://openai.github.io/openai-agents-python/" target="_blank">Agents SDK</a> · <a href="https://openai.github.io/openai-agents-python/multi_agent/" target="_blank">Orquestração multiagente</a> · <a href="https://openai.github.io/openai-agents-python/guardrails/" target="_blank">Guardrails</a></div></div></div>`}
+
+// IndexedDB para vídeos locais
+const DB='dax-agent-lab', STORE='videos';
+function db(){return new Promise((res,rej)=>{const r=indexedDB.open(DB,1);r.onupgradeneeded=()=>r.result.createObjectStore(STORE);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+async function storeVideo(id,file){if(!file)return; try{const d=await db(); await new Promise((res,rej)=>{const tx=d.transaction(STORE,'readwrite');tx.objectStore(STORE).put(file,id);tx.oncomplete=res;tx.onerror=()=>rej(tx.error)}); openModule(id)}catch(e){alert('Não foi possível salvar este vídeo no armazenamento do navegador. Tente manter o arquivo no aparelho e importá-lo novamente quando precisar.') }}
+async function videoExists(id){try{const d=await db();return await new Promise((res,rej)=>{const r=d.transaction(STORE).objectStore(STORE).getKey(id);r.onsuccess=()=>res(r.result!==undefined);r.onerror=()=>rej(r.error)})}catch{return false}}
+async function playStoredVideo(id){const d=await db();const file=await new Promise((res,rej)=>{const r=d.transaction(STORE).objectStore(STORE).get(id);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)}); if(file){const u=URL.createObjectURL(file);document.getElementById('videoBox').innerHTML=`<video controls playsinline src="${u}"></video>`}}
+async function removeVideo(id){try{const d=await db();await new Promise((res,rej)=>{const tx=d.transaction(STORE,'readwrite');tx.objectStore(STORE).delete(id);tx.oncomplete=res;tx.onerror=()=>rej(tx.error)});openModule(id)}catch(e){}}
+async function requestPersistence(){if(navigator.storage?.persist){const ok=await navigator.storage.persist();alert(ok?'Armazenamento persistente solicitado com sucesso.':'O navegador não concedeu armazenamento persistente. Mantenha também uma cópia dos vídeos em uma pasta do aparelho.') }else alert('Seu navegador não oferece essa opção.')}
+function exportBackup(){const blob=new Blob([JSON.stringify({version:1,state},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='dax-agent-lab-backup.json';a.click();URL.revokeObjectURL(a.href)}
+async function importBackup(file){if(!file)return;try{const x=JSON.parse(await file.text());if(x.state){Object.assign(state,x.state);save();alert('Backup importado.')}}catch{alert('Backup inválido.')}}
+if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js');renderNav();renderDashboard();
+</script>
+</body>
+</html>

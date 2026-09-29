@@ -1,0 +1,24 @@
+DAX AGENT LAB — COFRE DE ESTUDOS
+
+O que é
+- Web app offline/PWA criado para organizar seu estudo de agentes de IA.
+- Não é uma cópia do material protegido do produtor.
+- Você pode importar vídeos que tenha autorização para guardar.
+- Progresso e notas ficam salvos no navegador.
+- Vídeos importados ficam no IndexedDB do navegador enquanto o armazenamento existir.
+
+Como usar no computador
+1. Sirva esta pasta por HTTP local. Ex.: python -m http.server 8080
+2. Abra http://localhost:8080/dax-agent-lab/ (dependendo da pasta de onde iniciou o servidor).
+
+Como publicar para usar no celular
+- Hospede os arquivos em qualquer hospedagem estática HTTPS (Netlify, Vercel, Cloudflare Pages, GitHub Pages etc.).
+- Abra pelo Chrome/Android e use "Adicionar à tela inicial" / "Instalar app" quando disponível.
+
+Arquivamento responsável
+- Se o fornecedor disponibilizar um botão oficial de download dos vídeos, salve-os legalmente no aparelho e importe no módulo correspondente.
+- Se o vídeo não for disponibilizado para download, este projeto não contém métodos para burlar DRM, autenticação, assinatura ou expiração.
+- Mantenha uma cópia dos seus próprios arquivos fora do navegador; o Android pode limpar armazenamento de sites/apps em certas situações.
+
+Próximo passo recomendado
+- Baixe, pelos botões oficiais, os arquivos .md/ZIP que seu acesso permite e envie-os ao ChatGPT. Eles podem ser transformados em resumos, checklists, testes e uma base de conhecimento própria sem depender da página original.
