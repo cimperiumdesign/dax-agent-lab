@@ -22,3 +22,5 @@ Arquivamento responsável
 
 Próximo passo recomendado
 - Baixe, pelos botões oficiais, os arquivos .md/ZIP que seu acesso permite e envie-os ao ChatGPT. Eles podem ser transformados em resumos, checklists, testes e uma base de conhecimento própria sem depender da página original.
+
+Atualização pra publicar versão com vídeos.
