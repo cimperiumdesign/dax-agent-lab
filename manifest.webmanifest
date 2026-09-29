@@ -1,9 +1,10 @@
 {
-  "name":"DAX Agent Lab — Cofre de Estudos",
-  "short_name":"DAX Agent Lab",
-  "start_url":"./index.html",
-  "display":"standalone",
-  "background_color":"#07090f",
-  "theme_color":"#0a0d14",
-  "icons":[]
+  "name": "DAX Agent Lab",
+  "short_name": "DAX Lab",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#07090f",
+  "theme_color": "#0a0d14",
+  "lang": "pt-BR"
 }
