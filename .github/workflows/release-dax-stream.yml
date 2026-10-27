@@ -1,0 +1,37 @@
+name: Publicar APK DAX Stream para download
+on:
+  push:
+    branches: [dax-stream-mobile]
+    paths:
+      - '.github/workflows/release-dax-stream.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Instalar GitHub CLI e baixar APK compilado e verificado
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p apk
+          gh run download 40540459067 -R ${{ github.repository }} -n DAX-Stream-Android-APK -D apk
+          test -s apk/app-debug.apk
+          file apk/app-debug.apk
+          mv apk/app-debug.apk apk/DAX-Stream-Android.apk
+          sha256sum apk/DAX-Stream-Android.apk
+      - name: Publicar APK Android em release pública
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create dax-stream-android-beta-1 apk/DAX-Stream-Android.apk \
+            -R ${{ github.repository }} \
+            --target ${{ github.sha }} \
+            --title "DAX Stream Android - Beta 1" \
+            --notes "APK beta do DAX Stream, conectado ao servidor da Hostinger. Instalação manual para uso autorizado. Funcionalidades de reprodução dependem do provedor IPTV." \
+            --prerelease
